@@ -1,0 +1,11 @@
+{
+  "name": "exercise_REST_API",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ffrysz/exercise_REST_API.git",
+  "author": "Filip Frysz <ffrysz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
