@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -27,15 +27,30 @@ app.get('/testimonials/:id', (req, res) => {
 });
 
 app.post('/testimonials', (req, res) => {
-  // res.json(req.body);
+  const { author, text } = req.body;
+  const data = {
+    id: uuidv4(),
+    author: author,
+    text: text,
+  }
+  db.push(data);
   res.json({ message: 'OK' })
 });
 
 app.put('/testimonials/:id', (req, res) => {
+  const { author, text } = req.body;
+  const elementToEdit = db.findIndex(item => item.id == req.params.id);
+  db[elementToEdit] = {
+    id: req.params.id,
+    author: author,
+    text: text,
+  }
   res.json({ message: 'OK' })
 });
 
 app.delete('/testimonials/:id', (req, res) => {
+  const elementToDelete = db.findIndex(item => item.id == req.params.id);
+  db.splice(elementToDelete, 1);
   res.json({ message: 'OK' })
 });
 
