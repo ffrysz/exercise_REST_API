@@ -13,8 +13,8 @@ router.route('/concerts/random').get((req, res) => {
 });
 
 router.route('/concerts/:id').get((req, res) => {
-  const index = db.concerts.findIndex(value => value.id == req.params.id);
-  res.json(db.concerts[index]);
+  const index = db.concerts.find(value => value.id == req.params.id);
+  res.json(index);
 });
 
 router.route('/concerts').post((req, res) => {

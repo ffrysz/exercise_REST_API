@@ -13,8 +13,8 @@ router.route('/testimonials/random').get((req, res) => {
 });
 
 router.route('/testimonials/:id').get((req, res) => {
-  const index = db.testimonials.findIndex(value => value.id == req.params.id);
-  res.json(db.testimonials[index]);
+  const index = db.testimonials.find(value => value.id == req.params.id);
+  res.json(index);
 });
 
 router.route('/testimonials').post((req, res) => {
