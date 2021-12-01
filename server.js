@@ -5,9 +5,11 @@ const db = require('./db.js');
 const testimonialsRoutes = require('./endpoints/testimonials.end');
 const concertsRoutes = require('./endpoints/concerts.end');
 const seatsRoutes = require('./endpoints/seats.end');
+const cors = require('cors');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
