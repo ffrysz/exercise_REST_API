@@ -8,7 +8,7 @@ const seatsRoutes = require('./endpoints/seats.end');
 const cors = require('cors');
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.json()); //do obsługi przychodzących zapytań w formacie JSON
 app.use(cors());
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
