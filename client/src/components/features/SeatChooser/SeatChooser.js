@@ -12,7 +12,6 @@ class SeatChooser extends React.Component {
     loadSeats();
     this.socket.on('seatsUpdated', (seats) => {
       updateSeats(seats);
-      // this.freeSpots(seats);
     });
   }
 
@@ -20,7 +19,12 @@ class SeatChooser extends React.Component {
     clearInterval();
   }
 
-  // freeSpots = (seats) => { return this.freeSeats = 50 - seats.length };
+  freeSpots = (seats) => {
+    const freeSpaces = seats.filter((seat) => {
+      return seat.day === this.props.chosenDay;
+    });
+    return 50 - freeSpaces.length;
+  };
 
   isTaken = (seatId) => {
     const { seats, chosenDay } = this.props;
@@ -43,7 +47,7 @@ class SeatChooser extends React.Component {
 
   render() {
 
-    const { prepareSeat } = this;
+    const { prepareSeat, freeSpots } = this;
     const { requests } = this.props;
 
     return (
@@ -54,7 +58,7 @@ class SeatChooser extends React.Component {
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].success) && <div className="seats">{[...Array(50)].map((x, i) => prepareSeat(i + 1))}</div>}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].pending) && <Progress animated color="primary" value={50} />}
         {(requests['LOAD_SEATS'] && requests['LOAD_SEATS'].error) && <Alert color="warning">Couldn't load seats...</Alert>}
-        <p>Free seats {this.props.seats.length}/50</p>
+        <p>Free seats {freeSpots(this.props.seats)}/50</p>
       </div>
     )
   };

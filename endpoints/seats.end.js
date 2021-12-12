@@ -32,7 +32,7 @@ router.route('/seats').post((req, res) => {
   if (!taken) {
     db.seats.push(data);
     req.io.emit('seatsUpdated', db.seats);
-    res.json({ message: 'OK' });
+    // res.json({ message: 'OK' });
   } else {
     res.status(409).json({ message: 'The slot is already taken...' })
   }
