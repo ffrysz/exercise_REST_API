@@ -1,13 +1,18 @@
+//Plik zawiera modyfikacje wprowadzone w module MongoDB - dodane linie są odpowiednio zakomentowane
+
 const express = require('express');
 const socket = require('socket.io');
 // const { v4: uuidv4 } = require('uuid');
 const app = express();
-const db = require('./db.js');
+const mongoose = require('mongoose');  // MONGODB
+// const db = require('./db.js');
+
 const testimonialsRoutes = require('./endpoints/testimonials.end');
 const concertsRoutes = require('./endpoints/concerts.end');
 const seatsRoutes = require('./endpoints/seats.end');
 const cors = require('cors');
 const path = require('path');
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); //do obsługi przychodzących zapytań w formacie JSON
@@ -69,6 +74,15 @@ app.get('*', (req, res) => {
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 })
+
+mongoose.connect('mongodb://localhost:27017/newWaveDB', { useNewUrlParser: true, useUnifiedTopology: true }); // MONGODB
+const db = mongoose.connection; // MONGODB 
+
+db.once('open', () => { // MONGODB
+  console.log('Connected to the database'); // MONGODB
+}); // MONGODB
+db.on('error', err => console.log('Error ' + err)); // MONGODB
+
 
 const server = app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running on port: 8000');
