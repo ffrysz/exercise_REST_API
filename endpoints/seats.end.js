@@ -53,8 +53,8 @@ router.put('/seats/:id', async (req, res) => {
   try {
     const { id, day, seat, client, email } = req.body;
 
-    const seat = await Seat.findById(req.params.id);
-    if (seat) {
+    const st = await Seat.findById(req.params.id);
+    if (st) {
       await Seat.updateOne({ _id: req.params.id }, { $set: { id: id, day: day, seat: seat, client: client, email: email } })
       res.json({ message: 'OK' });
     }
